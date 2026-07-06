@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>BioDash - Evolução Física</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Customizado -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Lucide Icons via CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="theme-matheus">
+    <div class="app-container">
+        <!-- CABEÇALHO -->
+        <header class="app-header">
+            <div class="header-logo">
+                <span class="logo-text">Bio<span class="logo-highlight">Dash</span></span>
+            </div>
+            
+            <!-- Alternador de Perfil -->
+            <div class="profile-selector">
+                <button class="profile-btn active" id="btn-matheus" onclick="switchProfile('matheus')">
+                    <i data-lucide="user" class="btn-icon"></i> Matheus
+                </button>
+                <button class="profile-btn" id="btn-adrielli" onclick="switchProfile('adrielli')">
+                    <i data-lucide="user" class="btn-icon"></i> Adrielli
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="app-main">
+            <!-- ABA 1: PAINEL / DASHBOARD -->
+            <section id="tab-painel" class="tab-content active">
+                <!-- Seção de Storytelling -->
+                <div class="storytelling-card" id="storytelling-container">
+                    <div class="storytelling-header">
+                        <i data-lucide="sparkles" class="icon-sparkles"></i>
+                        <h3>Sua Jornada</h3>
+                    </div>
+                    <div class="storytelling-body" id="story-content">
+                        <!-- Gerado via JS -->
+                        <div class="empty-state">
+                            <p>Carregando análises...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumo dos Dados Atuais -->
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon-wrap bg-primary-light">
+                            <i data-lucide="scale" class="metric-icon"></i>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label">Último Peso</span>
+                            <h2 class="metric-value" id="current-weight">-- <span class="unit">kg</span></h2>
+                            <span class="metric-trend" id="weight-trend">Nenhum dado</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon-wrap bg-secondary-light">
+                            <i data-lucide="percent" class="metric-icon"></i>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label">Gordura Corporal</span>
+                            <h2 class="metric-value" id="current-fat">-- <span class="unit">%</span></h2>
+                            <span class="metric-trend" id="fat-trend">Nenhum dado</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon-wrap bg-accent-light">
+                            <i data-lucide="activity" class="metric-icon"></i>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label" id="lbl-muscle">Massa Muscular</span>
+                            <h2 class="metric-value" id="current-muscle">-- <span class="unit">kg</span></h2>
+                            <span class="metric-trend" id="muscle-trend">Nenhum dado</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon-wrap bg-info-light">
+                            <i data-lucide="droplet" class="metric-icon"></i>
+                        </div>
+                        <div class="metric-info">
+                            <span class="metric-label" id="lbl-water-visceral">Água / G. Visceral</span>
+                            <h2 class="metric-value" id="current-water-visceral">-- <span class="unit"></span></h2>
+                            <span class="metric-trend" id="water-visceral-trend">Nenhum dado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos de Evolução -->
+                <div class="chart-section card">
+                    <div class="chart-header">
+                        <h3>Gráfico de Evolução</h3>
+                        <div class="chart-toggle">
+                            <button class="toggle-btn active" onclick="changeChartMetric('peso')">Peso</button>
+                            <button class="toggle-btn" onclick="changeChartMetric('gordura')">% Gordura</button>
+                            <button class="toggle-btn" id="btn-chart-muscle" onclick="changeChartMetric('musculo')">Músculo</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="evolutionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Seção Exclusiva da Adrielli: Medidas e Dobras -->
+                <div id="adrielli-specific-dash" class="card adrielli-only hidden">
+                    <div class="section-title-wrap">
+                        <h3>Evolução de Medidas & Dobras</h3>
+                        <div class="sub-toggle">
+                            <button class="toggle-btn active" id="btn-sub-medidas" onclick="toggleSubDash('medidas')">Medidas (cm)</button>
+                            <button class="toggle-btn" id="btn-sub-dobras" onclick="toggleSubDash('dobras')">Dobras (mm)</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container" id="medidas-chart-container">
+                        <canvas id="medidasChart"></canvas>
+                    </div>
+                    <div class="chart-container hidden" id="dobras-chart-container">
+                        <canvas id="dobrasChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABA 2: HISTÓRICO / AVALIAÇÕES -->
+            <section id="tab-historico" class="tab-content">
+                <div class="section-header">
+                    <h2>Histórico de Avaliações</h2>
+                    <button class="btn btn-primary" onclick="openNewEvalModal()">
+                        <i data-lucide="plus"></i> Nova Avaliação
+                    </button>
+                </div>
+
+                <div class="history-list" id="eval-history-list">
+                    <!-- Gerado dinamicamente por JS -->
+                    <div class="empty-state card">
+                        <i data-lucide="calendar" class="empty-icon"></i>
+                        <p>Nenhuma avaliação física cadastrada para este perfil.</p>
+                        <button class="btn btn-secondary btn-sm" onclick="openNewEvalModal()">Cadastrar Primeira</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABA 3: DIETAS -->
+            <section id="tab-dieta" class="tab-content">
+                <div class="section-header">
+                    <h2>Minha Dieta</h2>
+                    <button class="btn btn-secondary" onclick="openDietEditor()">
+                        <i data-lucide="edit"></i> Editar Dieta
+                    </button>
+                </div>
+
+                <!-- Resumo dos Macros -->
+                <div class="card macro-summary-card">
+                    <h3>Resumo de Macronutrientes</h3>
+                    <div class="calories-gauge">
+                        <div class="calories-number" id="diet-calories-val">0</div>
+                        <div class="calories-label">Calorias (kcal)</div>
+                    </div>
+                    
+                    <div class="macros-grid">
+                        <div class="macro-bar-wrap">
+                            <div class="macro-info">
+                                <span class="macro-name">Proteínas</span>
+                                <span class="macro-vals" id="macro-p-vals">0g / 0g</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill bg-protein" id="bar-protein" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="macro-bar-wrap">
+                            <div class="macro-info">
+                                <span class="macro-name">Carboidratos</span>
+                                <span class="macro-vals" id="macro-c-vals">0g / 0g</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill bg-carb" id="bar-carb" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="macro-bar-wrap">
+                            <div class="macro-info">
+                                <span class="macro-name">Gorduras</span>
+                                <span class="macro-vals" id="macro-f-vals">0g / 0g</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill bg-fat" id="bar-fat" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Refeições -->
+                <div class="meals-list" id="meals-container">
+                    <!-- Gerado dinamicamente por JS -->
+                    <div class="empty-state card">
+                        <i data-lucide="apple" class="empty-icon"></i>
+                        <p>Nenhuma dieta cadastrada para este perfil.</p>
+                        <button class="btn btn-secondary btn-sm" onclick="openDietEditor()">Criar Dieta</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABA 4: LISTA DE COMPRAS -->
+            <section id="tab-compras" class="tab-content">
+                <div class="section-header">
+                    <h2>Lista de Compras</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-icon-only" onclick="clearCheckedShoppingItems()" title="Limpar marcados">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                        <button class="btn btn-primary" onclick="openAddShoppingItemModal()">
+                            <i data-lucide="plus"></i> Adicionar Item
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Info Box sobre o cruzamento de dietas -->
+                <div class="info-banner card">
+                    <i data-lucide="info" class="info-icon"></i>
+                    <p>Esta lista é unificada para as dietas do <strong>Matheus</strong> e da <strong>Adrielli</strong>. Você também pode adicionar itens de mercado gerais.</p>
+                </div>
+
+                <!-- Categorias de Compras -->
+                <div class="shopping-list-categories" id="shopping-categories-container">
+                    <!-- Gerado dinamicamente por JS -->
+                    <div class="empty-state card">
+                        <i data-lucide="shopping-cart" class="empty-icon"></i>
+                        <p>Sua lista de compras está vazia.</p>
+                        <button class="btn btn-secondary btn-sm" onclick="syncShoppingListFromDiets()">Gerar das Dietas</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABA 5: CONFIGURAÇÕES / BACKUP -->
+            <section id="tab-ajustes" class="tab-content">
+                <div class="section-header">
+                    <h2>Configurações & Backup</h2>
+                </div>
+
+                <div class="settings-group card">
+                    <h3>Backup dos Seus Dados</h3>
+                    <p class="settings-desc">Como o BioDash salva tudo localmente no seu celular, recomendamos exportar um backup regularmente para não perder seus dados de evolução física e dietas.</p>
+                    
+                    <div class="settings-actions">
+                        <button class="btn btn-secondary w-full" onclick="exportDataJSON()">
+                            <i data-lucide="download"></i> Exportar Dados (Backup JSON)
+                        </button>
+                        
+                        <label class="btn btn-outline w-full text-center cursor-pointer">
+                            <i data-lucide="upload"></i> Importar Dados (Restaurar JSON)
+                            <input type="file" id="import-file-input" style="display: none;" onchange="importDataJSON(event)">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-group card">
+                    <h3>Limpar Dados</h3>
+                    <p class="settings-desc text-danger">Atenção! Esta ação irá deletar permanentemente todas as suas avaliações físicas e dietas salvas no aparelho.</p>
+                    <button class="btn btn-danger w-full" onclick="clearAllData()">
+                        <i data-lucide="alert-triangle"></i> Deletar Tudo
+                    </button>
+                </div>
+
+                <div class="settings-footer">
+                    <p>BioDash v1.0 • Feito com ❤️ para o casal</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- MENU DE NAVEGAÇÃO INFERIOR -->
+        <nav class="app-nav">
+            <button class="nav-item active" id="nav-painel" onclick="switchTab('painel')">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Painel</span>
+            </button>
+            <button class="nav-item" id="nav-historico" onclick="switchTab('historico')">
+                <i data-lucide="calendar"></i>
+                <span>Histórico</span>
+            </button>
+            <button class="nav-item" id="nav-dieta" onclick="switchTab('dieta')">
+                <i data-lucide="apple"></i>
+                <span>Dietas</span>
+            </button>
+            <button class="nav-item" id="nav-compras" onclick="switchTab('compras')">
+                <i data-lucide="shopping-cart"></i>
+                <span>Compras</span>
+            </button>
+            <button class="nav-item" id="nav-ajustes" onclick="switchTab('ajustes')">
+                <i data-lucide="settings"></i>
+                <span>Ajustes</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- MODAL DE NOVA AVALIAÇÃO -->
+    <div class="modal-overlay" id="modal-new-eval">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="modal-eval-title">Adicionar Avaliação</h3>
+                <button class="modal-close" onclick="closeModal('modal-new-eval')">&times;</button>
+            </div>
+            <form id="form-new-eval" onsubmit="saveNewEvaluation(event)">
+                <div class="modal-body">
+                    <!-- Campo comum: Data -->
+                    <div class="form-group">
+                        <label for="eval-date">Data da Avaliação</label>
+                        <input type="date" id="eval-date" required>
+                    </div>
+
+                    <!-- Campos de Bioimpedância (Comuns a ambos) -->
+                    <div class="form-section-title">Dados de Bioimpedância</div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="eval-weight">Peso (kg)</label>
+                            <input type="number" id="eval-weight" step="0.01" placeholder="Ex: 75.50" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eval-muscle" id="lbl-eval-muscle">Massa Muscular (kg)</label>
+                            <input type="number" id="eval-muscle" step="0.01" placeholder="Ex: 34.20" required>
+                        </div>
+                    </div>
+
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label for="eval-fat">Gordura %</label>
+                            <input type="number" id="eval-fat" step="0.1" placeholder="Ex: 18.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eval-visceral">Gord. Visceral</label>
+                            <input type="number" id="eval-visceral" step="1" placeholder="Ex: 4">
+                        </div>
+                        <div class="form-group">
+                            <label for="eval-water">Água %</label>
+                            <input type="number" id="eval-water" step="0.1" placeholder="Ex: 55.4">
+                        </div>
+                    </div>
+
+                    <!-- Campos Exclusivos da Adrielli (Medidas e Dobras) -->
+                    <div class="adrielli-only hidden" id="adrielli-fields-wrap">
+                        
+                        <!-- Aba Medidas vs Dobras dentro do Formulário -->
+                        <div class="form-section-title">Dados de Medidas (cm)</div>
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="eval-cintura">Cintura</label>
+                                <input type="number" id="eval-cintura" step="0.1" placeholder="cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-abdomen">Abdômen</label>
+                                <input type="number" id="eval-abdomen" step="0.1" placeholder="cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-quadril">Quadril</label>
+                                <input type="number" id="eval-quadril" step="0.1" placeholder="cm">
+                            </div>
+                        </div>
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="eval-braco-d">Braço D.</label>
+                                <input type="number" id="eval-braco-d" step="0.1" placeholder="cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-braco-e">Braço E.</label>
+                                <input type="number" id="eval-braco-e" step="0.1" placeholder="cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-coxa-d">Coxa D.</label>
+                                <input type="number" id="eval-coxa-d" step="0.1" placeholder="cm">
+                            </div>
+                        </div>
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="eval-coxa-e">Coxa E.</label>
+                                <input type="number" id="eval-coxa-e" step="0.1" placeholder="cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-panturrilha-d">Pantur. D.</label>
+                                <input type="number" id="eval-panturrilha-d" step="0.1" placeholder="cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-panturrilha-e">Pantur. E.</label>
+                                <input type="number" id="eval-panturrilha-e" step="0.1" placeholder="cm">
+                            </div>
+                        </div>
+
+                        <!-- Dobras Cutâneas Pollock 7 -->
+                        <div class="form-section-title">
+                            Dobras Cutâneas Pollock 7 (mm)
+                            <span class="info-bubble" title="Usado para calcular automaticamente o % de Gordura via Pollock 7 dobras.">?</span>
+                        </div>
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="eval-d-triceps">Tríceps</label>
+                                <input type="number" id="eval-d-triceps" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-d-subescapular">Subescap.</label>
+                                <input type="number" id="eval-d-subescapular" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-d-peitoral">Peitoral</label>
+                                <input type="number" id="eval-d-peitoral" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                        </div>
+                        <div class="form-grid-3">
+                            <div class="form-group">
+                                <label for="eval-d-axilar">Axilar M.</label>
+                                <input type="number" id="eval-d-axilar" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-d-suprailiaca">Suprailíaca</label>
+                                <input type="number" id="eval-d-suprailiaca" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-d-abdominal">Abdominal</label>
+                                <input type="number" id="eval-d-abdominal" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                        </div>
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="eval-d-coxa">Coxa Anterior</label>
+                                <input type="number" id="eval-d-coxa" step="0.1" placeholder="mm" oninput="calculatePollock()">
+                            </div>
+                            <div class="form-group">
+                                <label for="eval-age">Idade (anos)</label>
+                                <input type="number" id="eval-age" placeholder="Idade" oninput="calculatePollock()">
+                            </div>
+                        </div>
+
+                        <!-- Resultado da calculadora Pollock -->
+                        <div class="calculator-result-box" id="pollock-result-box" style="display: none;">
+                            <span class="calc-label">Resultado Pollock 7 Dobras:</span>
+                            <span class="calc-value" id="pollock-calc-value">-- %</span>
+                            <span class="calc-desc">(Você pode usar este resultado no campo 'Gordura %' acima)</span>
+                            <button type="button" class="btn btn-outline btn-sm" onclick="applyPollockValue()" style="margin-top: 5px;">Usar esse valor</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-new-eval')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Avaliação</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DO EDITOR DE DIETA -->
+    <div class="modal-overlay" id="modal-diet-editor">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Editar Dieta</h3>
+                <button class="modal-close" onclick="closeModal('modal-diet-editor')">&times;</button>
+            </div>
+            <form id="form-diet-editor" onsubmit="saveDiet(event)">
+                <div class="modal-body">
+                    <!-- Metas de Macros do Perfil -->
+                    <div class="form-section-title">Metas de Macros do Dia</div>
+                    <div class="form-grid-4">
+                        <div class="form-group">
+                            <label for="diet-target-kcal">Calorias (kcal)</label>
+                            <input type="number" id="diet-target-kcal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diet-target-p">Proteína (g)</label>
+                            <input type="number" id="diet-target-p" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diet-target-c">Carbo (g)</label>
+                            <input type="number" id="diet-target-c" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diet-target-f">Gordura (g)</label>
+                            <input type="number" id="diet-target-f" required>
+                        </div>
+                    </div>
+
+                    <!-- Editor de Refeições -->
+                    <div class="form-section-title">Refeições</div>
+                    <div id="editor-meals-container">
+                        <!-- Gerado dinamicamente -->
+                    </div>
+                    <button type="button" class="btn btn-outline w-full" onclick="addMealToEditor()">
+                        <i data-lucide="plus"></i> Adicionar Refeição
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-diet-editor')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Dieta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE ADICIONAR ITEM NA LISTA DE COMPRAS -->
+    <div class="modal-overlay" id="modal-shopping-item">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Adicionar Item de Compra</h3>
+                <button class="modal-close" onclick="closeModal('modal-shopping-item')">&times;</button>
+            </div>
+            <form id="form-shopping-item" onsubmit="saveShoppingItem(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="shop-item-name">Nome do Alimento/Item</label>
+                        <input type="text" id="shop-item-name" placeholder="Ex: Batata Doce, Peito de Frango, Detergente" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shop-item-category">Categoria</label>
+                        <select id="shop-item-category" required>
+                            <option value="Proteínas">Proteínas (Frango, Carne, Ovos, etc.)</option>
+                            <option value="Carboidratos">Carboidratos (Arroz, Batata, Aveia, etc.)</option>
+                            <option value="Vegetais e Frutas">Vegetais e Frutas (Hortifruti)</option>
+                            <option value="Gorduras e Laticínios">Gorduras e Laticínios (Azeite, Queijo, etc.)</option>
+                            <option value="Suplementos">Suplementos (Whey, Creatina, etc.)</option>
+                            <option value="Outros">Outros (Limpeza, Diversos)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="shop-item-qty">Quantidade / Detalhe (Opcional)</label>
+                        <input type="text" id="shop-item-qty" placeholder="Ex: 2 kg, 1 dúzia, 500g">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('modal-shopping-item')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script Principal -->
+    <script src="app.js"></script>
+</body>
+</html>
