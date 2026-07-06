@@ -1,3 +1,6 @@
+// --- REGISTRO DE PLUGINS CHART.JS ---
+Chart.register(ChartDataLabels);
+
 // --- ESTADO INICIAL DA APLICAÇÃO ---
 const DEFAULT_STATE = {
     evaluations: {

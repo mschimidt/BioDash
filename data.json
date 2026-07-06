@@ -9,18 +9,18 @@
       "historico_avaliacoes": [
         {
           "data": "2026-04-09",
-          "tipo_avaliacao": "Avaliação Física Antropométrica",
-          "pontuacao_geral": null,
+          "tipo_avaliacao": "Avaliação Física Antropométrica + InBody",
+          "pontuacao_geral": 50,
           "composicao_corporal": {
             "peso_kg": 80.9,
-            "massa_muscular_esqueletica_kg": null,
+            "massa_muscular_esqueletica_kg": 21.6,
             "massa_magra_kg": 47.51,
-            "massa_gordura_corporal_kg": 33.39,
+            "massa_gordura_corporal_kg": 41.5,
             "imc": 33.67,
-            "percentual_gordura_corporal_pgc": 41.27,
-            "agua_corporal_total_l": null,
-            "taxa_metabolica_basal_kcal": null,
-            "nivel_gordura_visceral": null,
+            "percentual_gordura_corporal_pgc": 51.3,
+            "agua_corporal_total_l": 28.8,
+            "taxa_metabolica_basal_kcal": 1220,
+            "nivel_gordura_visceral": 20,
             "relacao_cintura_quadril": 0.83
           },
           "detalhes_antropometricos": {
@@ -54,23 +54,38 @@
               "coxa": 46.0
             }
           },
-          "analise_segmentar": null,
+          "analise_segmentar": {
+            "massa_magra": {
+              "braco_esquerdo": { "kg": 2.16, "percentual": 97.0, "status": "Normal" },
+              "braco_direito": { "kg": 2.21, "percentual": 99.4, "status": "Normal" },
+              "tronco": { "kg": 19.8, "percentual": 99.4, "status": "Normal" },
+              "perna_esquerda": { "kg": 6.13, "percentual": 87.8, "status": "Abaixo" },
+              "perna_direita": { "kg": 6.19, "percentual": 88.8, "status": "Abaixo" }
+            },
+            "massa_gorda": {
+              "braco_esquerdo": { "kg": 3.8, "percentual": 439.2, "status": "Acima" },
+              "braco_direito": { "kg": 3.8, "percentual": 438.5, "status": "Acima" },
+              "tronco": { "kg": 20.4, "percentual": 420.5, "status": "Acima" },
+              "perna_esquerda": { "kg": 6.0, "percentual": 272.7, "status": "Acima" },
+              "perna_direita": { "kg": 6.0, "percentual": 272.9, "status": "Acima" }
+            }
+          },
           "observacoes": "DIREITA 22,5 KG / ESQUERDA 22 KG"
         },
         {
           "data": "2026-05-18",
-          "tipo_avaliacao": "Avaliação Física Antropométrica",
-          "pontuacao_geral": null,
+          "tipo_avaliacao": "Avaliação Física Antropométrica + InBody",
+          "pontuacao_geral": 51,
           "composicao_corporal": {
             "peso_kg": 76.3,
-            "massa_muscular_esqueletica_kg": null,
+            "massa_muscular_esqueletica_kg": 20.4,
             "massa_magra_kg": 46.61,
-            "massa_gordura_corporal_kg": 29.69,
+            "massa_gordura_corporal_kg": 38.9,
             "imc": 31.76,
-            "percentual_gordura_corporal_pgc": 38.91,
-            "agua_corporal_total_l": null,
-            "taxa_metabolica_basal_kcal": null,
-            "nivel_gordura_visceral": null,
+            "percentual_gordura_corporal_pgc": 51.0,
+            "agua_corporal_total_l": 27.4,
+            "taxa_metabolica_basal_kcal": 1177,
+            "nivel_gordura_visceral": 20,
             "relacao_cintura_quadril": 0.78
           },
           "detalhes_antropometricos": {
@@ -104,23 +119,38 @@
               "coxa": null
             }
           },
-          "analise_segmentar": null,
+          "analise_segmentar": {
+            "massa_magra": {
+              "braco_esquerdo": { "kg": 2.03, "percentual": 93.4, "status": "Normal" },
+              "braco_direito": { "kg": 2.03, "percentual": 93.7, "status": "Normal" },
+              "tronco": { "kg": 18.9, "percentual": 97.1, "status": "Normal" },
+              "perna_esquerda": { "kg": 5.90, "percentual": 86.6, "status": "Abaixo" },
+              "perna_direita": { "kg": 5.89, "percentual": 86.4, "status": "Abaixo" }
+            },
+            "massa_gorda": {
+              "braco_esquerdo": { "kg": 3.4, "percentual": 397.6, "status": "Acima" },
+              "braco_direito": { "kg": 3.5, "percentual": 398.3, "status": "Acima" },
+              "tronco": { "kg": 19.3, "percentual": 397.2, "status": "Acima" },
+              "perna_esquerda": { "kg": 5.7, "percentual": 257.4, "status": "Acima" },
+              "perna_direita": { "kg": 5.7, "percentual": 256.8, "status": "Acima" }
+            }
+          },
           "observacoes": null
         },
         {
           "data": "2026-07-03",
-          "tipo_avaliacao": "Avaliação Física Antropométrica",
-          "pontuacao_geral": null,
+          "tipo_avaliacao": "Avaliação Física Antropométrica + InBody",
+          "pontuacao_geral": 52,
           "composicao_corporal": {
             "peso_kg": 77.0,
-            "massa_muscular_esqueletica_kg": null,
+            "massa_muscular_esqueletica_kg": 20.8,
             "massa_magra_kg": 46.97,
-            "massa_gordura_corporal_kg": 30.03,
+            "massa_gordura_corporal_kg": 38.7,
             "imc": 32.05,
-            "percentual_gordura_corporal_pgc": 39.0,
-            "agua_corporal_total_l": null,
-            "taxa_metabolica_basal_kcal": null,
-            "nivel_gordura_visceral": null,
+            "percentual_gordura_corporal_pgc": 50.3,
+            "agua_corporal_total_l": 28.1,
+            "taxa_metabolica_basal_kcal": 1197,
+            "nivel_gordura_visceral": 19,
             "relacao_cintura_quadril": 0.81
           },
           "detalhes_antropometricos": {
@@ -154,13 +184,28 @@
               "coxa": 40.0
             }
           },
-          "analise_segmentar": null,
+          "analise_segmentar": {
+            "massa_magra": {
+              "braco_esquerdo": { "kg": 2.01, "percentual": 92.3, "status": "Normal" },
+              "braco_direito": { "kg": 1.97, "percentual": 90.6, "status": "Normal" },
+              "tronco": { "kg": 18.5, "percentual": 94.8, "status": "Normal" },
+              "perna_esquerda": { "kg": 6.23, "percentual": 91.0, "status": "Normal" },
+              "perna_direita": { "kg": 6.14, "percentual": 89.7, "status": "Abaixo" }
+            },
+            "massa_gorda": {
+              "braco_esquerdo": { "kg": 3.4, "percentual": 388.6, "status": "Acima" },
+              "braco_direito": { "kg": 3.4, "percentual": 389.9, "status": "Acima" },
+              "tronco": { "kg": 18.3, "percentual": 376.8, "status": "Acima" },
+              "perna_esquerda": { "kg": 6.2, "percentual": 278.4, "status": "Acima" },
+              "perna_direita": { "kg": 6.2, "percentual": 279.4, "status": "Acima" }
+            }
+          },
           "observacoes": null
         }
       ]
     },
     {
-      "nome": "Matheus",
+      "nome": "Matheus Schimi",
       "perfil": {
         "sexo": "Masculino",
         "altura_cm": 174
