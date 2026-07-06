@@ -616,7 +616,15 @@ function renderCharts() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: false }
+                legend: { display: false },
+                datalabels: {
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    align: 'top',
+                    font: { size: 10, weight: '600' },
+                    formatter: function(value) {
+                        return currentChartMetric === 'gordura' ? value.toFixed(1) + '%' : value.toFixed(1);
+                    }
+                }
             },
             scales: {
                 x: {
@@ -658,7 +666,13 @@ function renderCharts() {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom', labels: { boxWidth: 10, color: 'var(--text-muted)', font: { size: 9 } } }
+                        legend: { position: 'bottom', labels: { boxWidth: 10, color: 'var(--text-muted)', font: { size: 9 } } },
+                        datalabels: {
+                            color: 'rgba(255, 255, 255, 0.7)',
+                            align: 'top',
+                            font: { size: 9 },
+                            formatter: function(value) { return value; }
+                        }
                     },
                     scales: {
                         x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: 'var(--text-muted)' } },
@@ -704,7 +718,13 @@ function renderCharts() {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom', labels: { color: 'var(--text-muted)', font: { size: 10 } } }
+                        legend: { position: 'bottom', labels: { color: 'var(--text-muted)', font: { size: 10 } } },
+                        datalabels: {
+                            color: 'rgba(255, 255, 255, 0.8)',
+                            align: 'top',
+                            font: { size: 10, weight: '600' },
+                            formatter: function(value) { return value.toFixed(1); }
+                        }
                     },
                     scales: {
                         x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: 'var(--text-muted)' } },
