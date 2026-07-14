@@ -137,15 +137,76 @@ const DEFAULT_STATE = {
     },
     diets: {
         matheus: {
-            kcal: 2200,
+            kcal: 1462,
             p: 160,
-            c: 240,
-            f: 65,
+            c: 108,
+            f: 43,
             meals: [
-                { name: "Café da Manhã", time: "08:00", foods: "3 ovos mexidos, 2 fatias de pão integral, 1 colher de requijão light", kcal: 380, p: 25, c: 26, f: 18 },
-                { name: "Almoço", "time": "12:30", foods: "150g de peito de frango grelhado, 200g de arroz integral, salada de folhas à vontade", kcal: 520, p: 48, c: 50, f: 8 },
-                { name: "Lanche da Tarde", time: "16:00", foods: "30g de whey protein, 30g de aveia em flocos, 1 banana", kcal: 320, p: 28, c: 38, f: 4 },
-                { name: "Jantar", time: "20:00", foods: "150g de patinho moído, 150g de batata doce cozida, legumes no vapor", kcal: 580, p: 45, c: 45, f: 12 }
+                {
+                    name: "Café da Manhã",
+                    time: "09:00",
+                    foods: "150ml de água, 30g de whey protein, 1 unidade de banana (90g)",
+                    substitutions: [
+                        "Substituição 1: 25g de whey protein + 35g de aveia em flocos + 150ml de água",
+                        "Substituição 2: 150g de iogurte natural desnatado + 20g de whey protein + 20g de granola sem açúcar"
+                    ],
+                    kcal: 200,
+                    p: 25,
+                    c: 22,
+                    f: 2
+                },
+                {
+                    name: "Almoço",
+                    time: "13:00",
+                    foods: "80g de arroz (ou macarrão/150g batata inglesa), 80g de feijão, 150g de filé de frango (ou peixe/130g carne magra), 70g de legumes, salada à vontade, 8g de azeite",
+                    substitutions: [
+                        "Substituição 1: 200g de batata doce cozida + 230g de filé de peixe grelhado (tilápia) + 70g de legumes + salada + 8g de azeite",
+                        "Substituição 2: 110g de macarrão cozido + 140g de patinho moído ou grelhado + 70g de legumes + salada + 2g de azeite"
+                    ],
+                    kcal: 511,
+                    p: 55,
+                    c: 41,
+                    f: 13
+                },
+                {
+                    name: "Lanche da Tarde",
+                    time: "16:00",
+                    foods: "170g de iogurte natural, 1 maçã pequena (80g, ou 100g melão/mamão), 8g de castanha do Pará, 12g de castanha de caju",
+                    substitutions: [
+                        "Substituição 1: 1 fatia de pão integral + 1 ovo mexido + 15g de pasta de amendoim + 100g de melão",
+                        "Substituição 2: 100g de abacate + 15g de whey protein + 20g de aveia em flocos + 10g de castanha de caju"
+                    ],
+                    kcal: 265,
+                    p: 10,
+                    c: 23,
+                    f: 16
+                },
+                {
+                    name: "Jantar",
+                    time: "19:00",
+                    foods: "1 rap10 integral (42g), 120g de filé de frango (ou peixe), 45g de tomate, 1 fatia de mussarela",
+                    substitutions: [
+                        "Substituição 1: Crepioca (30g de goma de tapioca + 50g de claras de ovo) recheada com 120g de frango desfiado + 20g de queijo cottage + 6g de azeite",
+                        "Substituição 2: 75g de arroz cozido + 130g de patinho grelhado + salada de folhas com 45g de tomate"
+                    ],
+                    kcal: 366,
+                    p: 46,
+                    c: 20,
+                    f: 10
+                },
+                {
+                    name: "Ceia",
+                    time: "22:00",
+                    foods: "150ml de água, 30g de whey protein",
+                    substitutions: [
+                        "Substituição 1: 30g de albumina + 150ml de água",
+                        "Substituição 2: 150g de claras de ovo cozidas + 50g de queijo cottage"
+                    ],
+                    kcal: 120,
+                    p: 24,
+                    c: 2,
+                    f: 2
+                }
             ]
         },
         adrielli: {
@@ -194,16 +255,27 @@ const FOOD_KEYWORDS = [
     { keyword: 'batata', name: 'Batata Doce / Inglesa', category: 'Carboidratos' },
     { keyword: 'aveia', name: 'Aveia em Flocos', category: 'Carboidratos' },
     { keyword: 'pão', name: 'Pão Integral', category: 'Carboidratos' },
+    { keyword: 'feijão', name: 'Feijão', category: 'Carboidratos' },
+    { keyword: 'feijao', name: 'Feijão', category: 'Carboidratos' },
+    { keyword: 'rap10', name: 'Rap10 Integral', category: 'Carboidratos' },
     { keyword: 'banana', name: 'Banana', category: 'Vegetais e Frutas' },
     { keyword: 'maçã', name: 'Maçã', category: 'Vegetais e Frutas' },
     { keyword: 'salada', name: 'Folhas Verdes (Alface, Rúcula)', category: 'Vegetais e Frutas' },
     { keyword: 'legumes', name: 'Legumes Variados (Brócolis, Cenoura)', category: 'Vegetais e Frutas' },
+    { keyword: 'tomate', name: 'Tomate', category: 'Vegetais e Frutas' },
+    { keyword: 'melão', name: 'Melão', category: 'Vegetais e Frutas' },
+    { keyword: 'melao', name: 'Melão', category: 'Vegetais e Frutas' },
+    { keyword: 'mamão', name: 'Mamão', category: 'Vegetais e Frutas' },
+    { keyword: 'mamao', name: 'Mamão', category: 'Vegetais e Frutas' },
     { keyword: 'azeite', name: 'Azeite de Oliva Extra Virgem', category: 'Gorduras e Laticínios' },
     { keyword: 'queijo', name: 'Queijo Cottage / Minas Light', category: 'Gorduras e Laticínios' },
     { keyword: 'requijão', name: 'Requeijão Light', category: 'Gorduras e Laticínios' },
     { keyword: 'leite', name: 'Leite Desnatado', category: 'Gorduras e Laticínios' },
     { keyword: 'iogurte', name: 'Iogurte Natural Desnatado', category: 'Gorduras e Laticínios' },
-    { keyword: 'castanhas', name: 'Castanhas / Oleaginosas', category: 'Gorduras e Laticínios' }
+    { keyword: 'castanhas', name: 'Castanhas / Oleaginosas', category: 'Gorduras e Laticínios' },
+    { keyword: 'pará', name: 'Castanha do Pará', category: 'Gorduras e Laticínios' },
+    { keyword: 'caju', name: 'Castanha de Caju', category: 'Gorduras e Laticínios' },
+    { keyword: 'mussarela', name: 'Queijo Mussarela', category: 'Gorduras e Laticínios' }
 ];
 
 // --- INICIALIZAÇÃO DA APLICAÇÃO ---
@@ -228,6 +300,13 @@ function loadState() {
             state = JSON.parse(saved);
             // Garante retrocompatibilidade se faltarem campos novos
             if (!state.targets) state.targets = DEFAULT_STATE.targets;
+            if (!state.diets) {
+                state.diets = JSON.parse(JSON.stringify(DEFAULT_STATE.diets));
+            } else if (state.diets.matheus && (state.diets.matheus.kcal === 2200 || state.diets.matheus.meals.length === 4 || !state.diets.matheus.meals[0].substitutions)) {
+                // Atualiza a dieta do Matheus se for a antiga padrão ou se não tiver substituições
+                state.diets.matheus = JSON.parse(JSON.stringify(DEFAULT_STATE.diets.matheus));
+                saveState();
+            }
             // Se as avaliações locais estiverem vazias, injeta os dados reais do DEFAULT_STATE
             if ((!state.evaluations.matheus || state.evaluations.matheus.length === 0) &&
                 (!state.evaluations.adrielli || state.evaluations.adrielli.length === 0)) {
@@ -996,6 +1075,19 @@ function renderDiet() {
         const foodsArray = m.foods.split(',').map(f => f.trim()).filter(f => f.length > 0);
         const foodsLi = foodsArray.map(f => `<li class="meal-food-item">${f}</li>`).join('');
         
+        let subsHtml = '';
+        if (m.substitutions && m.substitutions.length > 0) {
+            const subsLi = m.substitutions.map(sub => `<li class="sub-item">${sub}</li>`).join('');
+            subsHtml = `
+                <div class="meal-substitutions">
+                    <span class="sub-title">Substituições:</span>
+                    <ul class="sub-list">
+                        ${subsLi}
+                    </ul>
+                </div>
+            `;
+        }
+        
         mealsHtml += `
             <div class="meal-card">
                 <div class="meal-header">
@@ -1010,6 +1102,7 @@ function renderDiet() {
                     <ul class="meal-foods-list">
                         ${foodsLi || '<li>Nenhum alimento cadastrado</li>'}
                     </ul>
+                    ${subsHtml}
                 </div>
             </div>
         `;
@@ -1078,6 +1171,10 @@ function renderEditorMeals() {
                     <label>Alimentos (separe por vírgula para lista)</label>
                     <textarea rows="2" onchange="updateEditorMealField(${idx}, 'foods', this.value)" placeholder="Ex: 100g de frango, 150g de arroz">${m.foods}</textarea>
                 </div>
+                <div class="form-group">
+                    <label>Substituições (uma por linha)</label>
+                    <textarea rows="2" onchange="updateEditorMealSubstitutions(${idx}, this.value)" placeholder="Ex: Substituição 1...\nSubstituição 2...">${m.substitutions ? m.substitutions.join('\n') : ''}</textarea>
+                </div>
                 <div class="form-grid-4">
                     <div class="form-group">
                         <label>Calorias</label>
@@ -1104,7 +1201,7 @@ function renderEditorMeals() {
 }
 
 function addMealToEditor() {
-    editingMeals.push({ name: "Nova Refeição", time: "12:00", foods: "", kcal: 0, p: 0, c: 0, f: 0 });
+    editingMeals.push({ name: "Nova Refeição", time: "12:00", foods: "", substitutions: [], kcal: 0, p: 0, c: 0, f: 0 });
     renderEditorMeals();
 }
 
@@ -1115,6 +1212,10 @@ function removeMealFromEditor(idx) {
 
 function updateEditorMealField(idx, field, val) {
     editingMeals[idx][field] = val;
+}
+
+function updateEditorMealSubstitutions(idx, val) {
+    editingMeals[idx].substitutions = val.split('\n').map(s => s.trim()).filter(s => s.length > 0);
 }
 
 function saveDiet(e) {
@@ -1137,6 +1238,44 @@ function saveDiet(e) {
 }
 
 // --- LISTA DE COMPRAS - LÓGICA ---
+function getDaysQty(qty, days) {
+    if (!qty) return '';
+    
+    // Se contiver "+", processa cada parte
+    if (qty.includes('+')) {
+        return qty.split('+').map(part => getDaysQty(part.trim(), days)).join(' + ');
+    }
+    
+    // Tenta casar o número inicial e a unidade restante
+    const numMatch = qty.match(/^(\d+(?:\.\d+)?)\s*(.*)$/);
+    if (!numMatch) return qty;
+    
+    const num = parseFloat(numMatch[1]);
+    const unit = numMatch[2].trim();
+    
+    if (isNaN(num)) return qty;
+    
+    const total = num * days;
+    
+    // Formata unidade de peso ou volume de forma amigável
+    const lowerUnit = unit.toLowerCase();
+    if (lowerUnit === 'g') {
+        if (total >= 1000) {
+            return `${Number((total / 1000).toFixed(2))} kg`;
+        }
+        return `${total}g`;
+    }
+    
+    if (lowerUnit === 'ml') {
+        if (total >= 1000) {
+            return `${Number((total / 1000).toFixed(2))} L`;
+        }
+        return `${total}ml`;
+    }
+    
+    return `${total} ${unit}`;
+}
+
 function renderShoppingList() {
     const container = document.getElementById('shopping-categories-container');
     const items = state.shoppingList || [];
@@ -1175,7 +1314,13 @@ function renderShoppingList() {
                 <div class="shopping-item-checkbox">
                     <input type="checkbox" id="chk-${item.id}" ${item.checked ? 'checked' : ''} onchange="toggleShoppingItem('${item.id}', this.checked)">
                     <span class="shopping-item-label">${item.name}</span>
-                    ${item.qty ? `<span class="shopping-item-qty">${item.qty}</span>` : ''}
+                    <div class="shopping-item-right-wrapper">
+                        ${item.qty ? `
+                            <span class="shopping-item-qty" title="Quantidade diária">${item.qty}/dia</span>
+                            <span class="day-badge badge-5" title="Quantidade para 5 dias">5d: ${getDaysQty(item.qty, 5)}</span>
+                            <span class="day-badge badge-7" title="Quantidade para 7 dias">7d: ${getDaysQty(item.qty, 7)}</span>
+                        ` : ''}
+                    </div>
                     <button class="delete-shop-item-btn" onclick="deleteShoppingItem('${item.id}')" title="Excluir item">
                         <i data-lucide="x"></i>
                     </button>

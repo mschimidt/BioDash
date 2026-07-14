@@ -825,6 +825,41 @@ body {
     border-radius: 4px;
 }
 
+.shopping-item-right-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: auto;
+}
+
+.day-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    white-space: nowrap;
+}
+
+.day-badge.badge-5 {
+    color: var(--color-primary);
+    border-color: var(--color-primary-light);
+}
+
+.day-badge.badge-7 {
+    color: var(--color-accent);
+    border-color: var(--color-accent-light);
+}
+
+.shopping-item-checkbox input[type="checkbox"]:checked ~ .shopping-item-right-wrapper {
+    opacity: 0.4;
+    text-decoration: line-through;
+}
+
+
 .delete-shop-item-btn {
     background: none;
     border: none;
@@ -1165,6 +1200,47 @@ body {
     font-size: 14px;
     margin-bottom: 16px;
     max-width: 260px;
+}
+
+/* MEAL SUBSTITUTIONS */
+.meal-substitutions {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.sub-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.sub-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sub-item {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    padding-left: 14px;
+    position: relative;
+}
+
+.sub-item::before {
+    content: "↳";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-secondary);
+    font-weight: bold;
 }
 
 /* --- UTILITY HIDDEN --- */
